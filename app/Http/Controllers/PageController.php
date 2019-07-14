@@ -32,10 +32,17 @@ class PageController extends Controller
         $blogs = Blog::orderby('created_at','desc')->paginate(10);
         return view('blogpost', compact('categories','blogs'));
     }
+
     public function postByCate($id){
         $categories = $this->categories;
         $blogsbycate = Blog::where('category_id',$id)->paginate(10);
-
         return view('postbycate', compact('categories','blogsbycate'));
+    }
+
+    public function searchPost(Request $request){
+        $categories = $this->categories;
+        $name = $request->txtsearch;
+        $blogs = Blog::where('name', 'LIKE' ,'%'.$name.'%')->paginate(10);
+        return view ('search',compact('categories', 'blogs'));
     }
 }

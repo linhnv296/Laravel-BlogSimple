@@ -21,6 +21,17 @@
 <body>
 @include('header')
 
+<div class="main-wrapper">
+    <section class="blog-list px-3 py-5 p-md-5">
+        <div class="search">
+            <form action="{{route('Page.search')}}" method="post">
+                @csrf
+                <input type="search" name="txtsearch">
+                <button class="btn-primary btn">search</button>
+            </form>
+        </div>
+    </section>
+</div>
 @yield('content')
 
 @include('footer')

@@ -24,8 +24,6 @@
         <div class="body-content justify-content-center text-justify">
             {!! $blog->content !!}
         </div>
-
-        <div class="clearfix"></div>
-
-
+    </div>
+    <div class="clearfix"></div>
 @endsection

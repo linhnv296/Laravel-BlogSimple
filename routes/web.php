@@ -58,6 +58,7 @@ Route::get('/about', 'PageController@about')->name('Page.about');
 Route::get('/contact', 'PageController@contact')->name('Page.contact');
 Route::get('/blogpost', 'PageController@blogPost')->name('Page.blogpost');
 Route::get('/{id}/blogpost', 'PageController@postByCate')->name('Page.postByCate');
+Route::post('/search', 'PageController@searchPost')->name('Page.search');
 
 Route::any('/ckfinder/examples/{example?}', 'CKSource\CKFinderBridge\Controller\CKFinderController@examplesAction')
     ->name('ckfinder_examples');
