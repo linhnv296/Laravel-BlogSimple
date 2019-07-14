@@ -15,6 +15,7 @@
 <div id="wrapper" class="admin-header header">
     <div class="header col-12" style="height: 60px; margin-bottom: 20px; padding-top: 20px; background: #CCCCCC">
         @include('admin.header')
+
     </div>
     <div class="clearfix" style="display: block; width: 100%;"></div>
     <div class="sidebar col-3 float-left">

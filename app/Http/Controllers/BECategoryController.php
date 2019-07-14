@@ -3,12 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\Http\Requests\CreateCategoryRequest;
+use App\Http\Requests\UpdateCategoryRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 
 class BECategoryController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function list()
     {
         $categories = Category::all();
@@ -32,7 +40,7 @@ class BECategoryController extends Controller
         return view('admin.category.create');
     }
 
-    public function store(Request $request)
+    public function store(CreateCategoryRequest $request)
     {
         $category = new Category();
         $category->name = $request->txtCateName;
@@ -66,7 +74,7 @@ class BECategoryController extends Controller
         return view('admin.category.edit', compact('category'));
     }
 
-    public function update(Request $request, $id){
+    public function update(UpdateCategoryRequest $request, $id){
         $category = $this->findById($id);
         $category->name = $request->txtCateName;
         $category->desc = $request->desc;

@@ -8,24 +8,40 @@
                         <small>add</small>
                     </h1>
                 </div>
-                <div class="col-lg-7" style="padding-bottom:120px">
+                <div class="col-12" style="padding-bottom:120px">
                     <form action="{{route('BECategory.store')}}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
                             <label>Category Name</label>
-                            <input class="form-control" name="txtCateName" placeholder="Please Enter Category Name"/>
+                            @if($errors->has('txtCateName'))
+                                <div class="text-danger">
+                                    {{ $errors->first('txtCateName')  }}
+                                </div>
+                            @endif
+                            <input class="form-control" name="txtCateName" value="{{ old('txtCateName')}}"/>
                         </div>
                         <div class="form-group">
                             <label>Category Description</label>
-                            <textarea class="form-control" rows="3" name="desc"></textarea>
+                            @if($errors->has('desc'))
+                                <div class="text-danger">
+                                    {{ $errors->first('desc')  }}
+                                </div>
+                            @endif
+{{--                            <input class="form-control" rows="3" name="desc" value="{{ old('desc')}}">--}}
+                            <textarea class="form-control" rows="3" name="desc">{{ old('desc')}}</textarea>
                         </div>
                         <div class="form-group">
                             <label>Category Image</label><br>
+                            @if($errors->has('fImages'))
+                                <div class="text-danger">
+                                    {{ $errors->first('fImages')  }}
+                                </div>
+                            @endif
                             <input type="file" name="fImages">
                         </div>
-                        <button type="submit" class="btn btn-default">Category Add</button>
-                        <button type="reset" class="btn btn-default">Reset</button>
-                        </form>
+                        <button type="submit" class="btn btn-danger">Category Add</button>
+                        <a href="{{route('BECategory.list')}}" class="btn-primary btn">Cancel</a>
+                    </form>
                 </div>
             </div>
             <!-- /.row -->
@@ -33,4 +49,12 @@
         <!-- /.container-fluid -->
     </div>
     <!-- /#page-wrapper -->
+    <script src={{ url('ckeditor/ckeditor.js') }}></script>
+    <script>
+        CKEDITOR.replace( 'desc', {
+            filebrowserBrowseUrl: '{{ route('ckfinder_browser') }}',
+
+        } );
+    </script>
+    @include('ckfinder::setup')
 @endsection

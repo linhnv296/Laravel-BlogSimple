@@ -1,7 +1,10 @@
 @extends('admin.master')
 @section('content')
+    <h2>Danh Sách Danh Mục</h2>
+    <p><a class="btn-primary btn" href="{{route('BECategory.create')}}">Add Category</a></p>
     <div class="BE-list">
         <table class="table table-bordered">
+            @if(!$categories->isEmpty())
             <thead>
             <tr>
                 <th scope="col">#</th>
@@ -13,7 +16,6 @@
             </tr>
             </thead>
             <tbody>
-            @if($categories)
                 @foreach($categories as $key => $category)
                     <tr>
                         <td>{{$key+1}}</td>
@@ -21,7 +23,7 @@
                         <td>{{$category->desc}}</td>
                         <td>
                             @if($category->image)
-                            <img src="{{ asset('storage/'.$category->image)}}" alt="{{$category->name}}">
+                                <img src="{{ asset('storage/'.$category->image)}}" alt="{{$category->name}}">
                             @else
                                 {{'Chưa có ảnh'}}
                             @endif
@@ -29,13 +31,19 @@
                         <td>
                             {{$category->updated_at}}
                         </td>
-                        <td><a href="{{route('BECategory.edit',['id'=>$category->id])}}">Edit</a>|<a href="{{route('BECategory.delete',['id'=>$category->id])}}">Delete</a></td>
+                        <td class="justify-content-center" align="center">
+                            <a class="btn-warning btn" href="{{route('BECategory.edit',['id'=>$category->id])}}">Edit</a>
+                            <a class="btn-danger btn" onclick="return confirm('Do you want delete')"
+                               href="{{route('BECategory.delete',['id'=>$category->id])}}">Delete</a>
+                        </td>
                     </tr>
                 @endforeach
+
+            </tbody>
             @else
                 <h2>Category none</h2>
             @endif
-            </tbody>
+
         </table>
     </div>
 @endsection

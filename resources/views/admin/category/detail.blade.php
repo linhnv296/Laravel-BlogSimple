@@ -11,9 +11,10 @@
                         <h2>{{$category->name}}</h2>
                     </li>
                     <li>
-                        Desc: {{$category->desc}}
+                        Desc: {!! $category->desc !!}
                     </li>
-                    <li><a href="">edit</a>|<a href="">Delete</a></li>
+                    <li><a href="{{route('BECategory.edit',['id'=>$category->id])}}">edit</a>|
+                        <a onclick="return confirm('Do you want delete')" href="{{route('BECategory.delete',['id'=>$category->id])}}">Delete</a></li>
                 </ul>
 
             </div>

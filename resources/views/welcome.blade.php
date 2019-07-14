@@ -1,99 +1,55 @@
-<!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+@extends('master')
+@section('content')
+    <div class="main-wrapper">
+        <section class="cta-section theme-bg-light py-5">
+            <div class="container text-center">
+                <div class="intro">Welcome to my blog. Subscribe and get my latest blog post in your inbox.</div>
+                <form class="signup-form form-inline justify-content-center pt-3">
+                    <div class="form-group">
+                        <label class="sr-only" for="semail">Your email</label>
+                        <input type="email" id="semail" name="semail1" class="form-control mr-md-1 semail"
+                               placeholder="Enter email">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Subscribe</button>
+                </form>
+            </div><!--//container-->
+        </section>
+    </div>
+    <div class="main-wrapper">
+        <section class="blog-list px-3 py-5 p-md-5">
+            <div class="container">
+                @if(!$blogs->isEmpty())
+                    @foreach($blogs as $key =>$blog)
+                        <div class="item mb-5">
+                            <div class="media">
+                                <img class="mr-3 img-fluid post-thumb d-none d-md-flex"
+                                     src="{{asset('storage/'.$blog->image)}}" alt="image">
+                                <div class="media-body">
+                                    <h3 class="title mb-1"><a
+                                                href="{{route('Blog.detail',['id'=>$blog->id])}}">{{$blog->name}}</a>
+                                    </h3>
+                                    <div class="meta mb-1">
+                                        <span class="date">Category: <a href="">{{$blog->Category->name}}</a></span>
+                                        <span class="date">
+                                            post: {{$blog->created_at}}
+                                       </span>
+                                        <span class="comment"><a href="#">8 comments</a></span>
+                                    </div>
+                                    <div class="intro">
+                                        {!!Str::limit($blog->content,250)!!}
+                                    </div>
+                                    <a class="more-link" href="{{route('Blog.detail',['id'=>$blog->id])}}">Read more
+                                        &rarr;</a>
+                                </div><!--//media-body-->
+                            </div><!--//media-->
+                        </div><!--//item-->
+                    @endforeach
+                    {{ $blogs->fragment('foo')->links() }}
+                @else
+                    <h2>Post null</h2>
+                @endif
 
-        <title>Laravel</title>
-
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-
-        <!-- Styles -->
-        <style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Nunito', sans-serif;
-                font-weight: 200;
-                height: 100vh;
-                margin: 0;
-            }
-
-            .full-height {
-                height: 100vh;
-            }
-
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
-
-            .position-ref {
-                position: relative;
-            }
-
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
-
-            .content {
-                text-align: center;
-            }
-
-            .title {
-                font-size: 84px;
-            }
-
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 13px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
-
-            .m-b-md {
-                margin-bottom: 30px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
-
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}">Register</a>
-                        @endif
-                    @endauth
-                </div>
-            @endif
-
-            <div class="content">
-                <div class="title m-b-md">
-                    Laravel
-                </div>
-
-                <div class="links">
-                    <a href="https://laravel.com/docs">Docs</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://blog.laravel.com">Blog</a>
-                    <a href="https://nova.laravel.com">Nova</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
-                </div>
             </div>
-        </div>
-    </body>
-</html>
+        </section>
+    </div><!--//main-wrapper-->
+@endsection
