@@ -1,7 +1,7 @@
 @extends('master-page')
 @section('contentpage')
     <div class="container">
-        @if($blogsbycate)
+        @if(!$blogsbycate->isEmpty())
             @foreach($blogsbycate as $key =>$blog)
                 <div class="item mb-5">
                     <div class="media">
